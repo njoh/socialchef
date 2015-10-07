@@ -28,7 +28,20 @@ function getRecipes(searchTerms) {
 function getRecipeMatches(response) {
 	var recipes = response.matches;
 	recipes.forEach( function(recipe) {
-		var name = recipe.recipeName;
-		$('.list').append('<ion-item class="item item-complex">' + name + '</ion-item>')
+		displayRecipe(recipe);
+		// var name = recipe.recipeName;
+		// $('.list').append('<ion-item class="item item-complex">' + name + '</ion-item>')
 	});
+}
+
+function displayRecipe(recipe) {
+	console.log(recipe);
+	var html = "<div class='list card'>" +
+				"<div class='item item-avatar'>" + 
+					"<img src=" + recipe.smallImageUrls[0] + ">" +
+					"<h2>" + recipe.recipeName + "</h2>" +
+					"<p>Total time to cook: " + recipe.totalTimeInSeconds/60 + " minutes</p>" +
+				"</div>" +
+			"</div>";
+	$('#search-results').append(html);
 }

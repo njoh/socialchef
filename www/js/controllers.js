@@ -68,6 +68,8 @@ angular.module('starter.controllers', [])
 
 .controller('DashboardCtrl', function($scope, $ionicModal) {
 
+	$('#cook-buttons').hide();
+
 	// Create the cook modal that we will use later
 	$ionicModal.fromTemplateUrl('templates/cook.html', {
 		scope: $scope
@@ -80,14 +82,21 @@ angular.module('starter.controllers', [])
 		$scope.cookModal.hide();
 	};
 
+	// Triggered in the cook today modal to close it
+	$scope.hideCookButtons = function() {
+		$('#cook-buttons').hide();
+	};
+
 	// Open the cook today modal
 	$scope.cook = function() {
-		$scope.cookModal.show();
+		// $scope.cookModal.show();
+		$('#cook-buttons').show();
 	};
 
 	$scope.addQuickMeal = function() {
 		$scope.addMeal('Quick Meal', 'none');
-		$scope.cookModal.hide();
+		// $scope.cookModal.hide();
+		$('#cook-buttons').hide();
 	}
 })
 

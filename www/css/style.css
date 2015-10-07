@@ -44,3 +44,36 @@ h4#number-meals-cooked-description {
 	width: 100%;
 }
 
+.button-circle-large {
+	width: 8em; 
+    height: 8em; 
+    border-radius: 50%; 
+}
+
+.col {
+	text-align:center;
+}
+
+#week {
+	color: white;
+	font-weight: 200;
+}
+
+#week-description {
+	color: white;
+	font-weight: 300;
+	letter-spacing: 2px;
+	font-size: 1.5em;
+	text-transform: uppercase;
+}
+
+.dash-navigation {
+	font-size: 2em;
+	color: white;
+}
+
+/*overriding ionic style*/
+.item-icon-left {
+    padding-left: 0;
+}
+

@@ -67,10 +67,11 @@ function displayRecipe(response) {
 	$('#recipe-details').empty();
 	var recipe = response;
 	console.log(recipe);
-	var html = "<div class='list card'>" +
-				"<div class='item'>" +
-					"<h2>" + recipe.name + "</h2>" +
-				"</div>" +
+	var html = "<h2 class='skinny-header center'>" + recipe.name + "</h2>" +
+			"<div class='list card'>" +
+				// "<div class='item'>" +
+				// 	"<h2 class='skinny-header'>" + recipe.name + "</h2>" +
+				// "</div>" +
 				"<div class='item item-image'>" + 
 					"<img src=" + recipe.images[0].hostedLargeUrl + ">" +
 				"</div>" +

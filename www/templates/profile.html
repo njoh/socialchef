@@ -28,7 +28,7 @@
 				Cook today
   			</a>
 
-  			<div id="cook-buttons" class="item">
+  			<!-- <div id="cook-buttons" class="item">
   				<div class="row">
   					<div class="col">
 		  				<button class="button button-balanced button-circle-large button-center" ng-click="addQuickMeal()">
@@ -45,8 +45,29 @@
 						</a>
 					</div>
 				</div>
-  			</div>
+  			</div> -->
 		</div>
+
+		<div id="cook-buttons">
+  				<div class="row">
+  					<div class="col">
+		  				<button class="button button-balanced button-circle-large button-center" ng-click="addQuickMeal()">
+		  					<i class="ionicons ion-ios-nutrition-outline cook-button-icon"></i>
+						  	<h3 class="cook-button-text">Cook Quick Meal</h3>
+						</button>
+					</div>
+					<div class="col">
+						<a href="#/app/search">
+							<button class="button button-balanced button-circle-large button-center" ng-click="hideCookButtons()">
+								<i class="ionicons ion-ios-search cook-button-icon"></i>
+							  	<h3 class="cook-button-text">
+							  		Search for Recipe
+							  	</h3>
+							</button>
+						</a>
+					</div>
+				</div>
+  			</div>
 
 		<div class="list card">
 			<div class="item">
@@ -68,7 +89,7 @@
 
 		<div class="list card">
 			<div class="item item-avatar">
-				<img src="img/ionic.png">
+				<img class="award" src="img/chef-status/dishwasher.png">
 				<h2>Chef Level: Dishwasher</h2>
 				<p>9 meals to go until next level!</p>
 			</div>
@@ -76,19 +97,19 @@
 
 		<div class="list card">
 			<div class="item">
-				<h2>Trophies earned this week</h2>
+				<h2>Trophies earned this week:</h2>
 			</div>
 
 			<div class="item item-avatar">
-				<img src="img/ionic.png">
-				<h2>Ratatouille Award</h2>
+				<img class="award" src="img/awards/ratatouille-award.jpg">
+				<h2>Ratatouille Trophy</h2>
 				<p>For cooking your first meal</p>
 			</div>
 
 			<div class="item item-avatar">
-				<img src="img/ionic.png">
-				<h2>Paleo for the week</h2>
-				<p>For eating entirely paleo meals</p>
+				<img class="award" src="img/awards/caveman-award.jpg">
+				<h2>Caveman Trophy</h2>
+				<p>For eating entirely paleo for the week</p>
 			</div>
 		</div>
 	</ion-content>

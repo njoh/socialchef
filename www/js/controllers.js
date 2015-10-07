@@ -76,6 +76,7 @@ angular.module('starter.controllers', [])
 
 .controller('RecipeCtrl', function($scope, $stateParams) {
 	var recipeId = $stateParams.recipeId;
+	getRecipe(recipeId);
 	$scope.recipe = $scope.getRecipe(recipeId);
 })
 

@@ -1,7 +1,5 @@
 // Gets recipes after user performs search
 function getRecipes(searchTerms) {
-	// value from search field 
-	var searchTerms = searchTerms
 	try {
 		$.ajax({
 			// Using Yummly API: https://developer.yummly.com/
@@ -30,7 +28,7 @@ function displayRecipes(response) {
 	var recipes = response.matches;
 	recipes.forEach( function(recipe) {
 		console.log(recipe);
-		// display each recipes
+		// display each recipe
 		var html = "<div class='list card'>" +
 					"<a href='#/app/recipes/" + recipe.id + "' class='item item-avatar'>" + 
 						"<img src=" + recipe.smallImageUrls[0] + ">" +
@@ -40,4 +38,47 @@ function displayRecipes(response) {
 				"</div>";
 		$('#search-results').append(html);
 	});
+}
+
+function getRecipe(recipeID) {
+	try {
+		$.ajax({
+			// Using Yummly API: https://developer.yummly.com/
+		url: 'http://api.yummly.com/v1/api/recipe/' + recipeID + '?',
+		headers: {
+			'X-Yummly-App-ID': '363dd85c',  
+			'X-Yummly-App-Key': '2785c2525925d81be5a8d6fb45b6974c'
+		},
+		data: {
+			_app_id: '363dd85c',
+ 			_app_key: '2785c2525925d81be5a8d6fb45b6974c',
+ 			callback: 'displayRecipe'
+		},
+		jsonp: false,
+		dataType: 'jsonp',
+		crossDomain: true,
+		})
+	} catch(e) {
+		console.log(e.description);
+	}
+}
+
+function displayRecipe(response) {
+	console.log('yay');
+	$('#recipe-details').empty();
+	var recipe = response;
+	var html = "<div class='list card'>" +
+				"<div class='item'>" +
+					"<h2>" + recipe.name + "</h2>" +
+				"</div>" +
+				"<div class='item item-image'>" + 
+					"<img src=" + recipe.images[0].hostedLargeUrl + ">" +
+				"</div>" +
+				"<div href='#/app/recipes/" + recipe.id + "' class='item item-avatar'>" + 
+					"<img src='img/ionic.png'>" +
+					"<h2>Total ingredients: " + recipe.ingredientLines.length + "</h2>" +
+					"<p>Cook time: " + recipe.totalTimeInSeconds/60 + " minutes</p>" +
+				"</div>" +
+			"</div>";
+	$('#recipe-details').append(html);
 }

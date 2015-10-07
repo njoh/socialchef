@@ -122,6 +122,8 @@ angular.module('starter.controllers', [])
 		{ title: 'Pizza', 		id: 2,	date: 'tomorrow' },
 		{ title: 'PB&J', 		id: 3,	date: 'friday' }
 	];
+	// $scope.meals = $scope.mealsCooked;
+	// console.log($scope.mealsCooked);
 })
 
 .controller('BadgesCtrl', function($scope) {

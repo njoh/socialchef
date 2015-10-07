@@ -1,11 +1,17 @@
 <ion-view view-title="History">
 	<ion-content padding="true">
-		<h1>History</h1>
+	    <div class="list card">
+			<div class="item item-avatar" ng-repeat="meal in mealsCooked">
+				<img src="img/ionic.png">
+				<h2>{{meal.name}}</h2>
+				<p>{{meal.date}}</p>
+			</div>
 
-		<ion-list>
-	      	<ion-item ng-repeat="recipe in recipes" href="#/app/recipes/{{recipe.id}}">
-	        	{{recipe.title}}, {{recipe.date}}
-	      	</ion-item>
-	    </ion-list>
+			<div class="item item-avatar">
+				<img src="img/ionic.png">
+				<h2>Ratatouille award earned!</h2>
+				<p>For cooking your first meal - anyone can cook!</p>
+			</div>
+		</div>
 	</ion-content>
 </ion-view>

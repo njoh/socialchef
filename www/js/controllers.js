@@ -62,7 +62,8 @@ angular.module('starter.controllers', [])
 .controller('SearchCtrl', function($scope) {
 	$scope.search = function(keyEvent) {
 		if (keyEvent.which === 13) {
-			alert('Perform search');
+			alert('Perform search ' + this.searchTerm);
+			getRecipes(this.searchTerm);
 			// $scope.recipes = [
 			// 	{ title: 'Cookies', id: 1 },
 			// 	{ title: 'Pizza', id: 2 },

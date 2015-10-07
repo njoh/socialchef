@@ -14,7 +14,7 @@ function getRecipes(searchTerms) {
 				_app_id: '363dd85c',
  				_app_key: '2785c2525925d81be5a8d6fb45b6974c',
  				q: searchTerms,
- 				callback : 'getRecipeMatches'
+ 				callback : 'displayRecipes'
  			},
 			jsonp: false,
 			dataType: 'jsonp',
@@ -25,23 +25,19 @@ function getRecipes(searchTerms) {
 	}
 }
 
-function getRecipeMatches(response) {
+function displayRecipes(response) {
+	$('#search-results').empty();
 	var recipes = response.matches;
 	recipes.forEach( function(recipe) {
-		displayRecipe(recipe);
-		// var name = recipe.recipeName;
-		// $('.list').append('<ion-item class="item item-complex">' + name + '</ion-item>')
+		console.log(recipe);
+		// display each recipes
+		var html = "<div class='list card'>" +
+					"<a href='#/app/recipes/" + recipe.id + "' class='item item-avatar'>" + 
+						"<img src=" + recipe.smallImageUrls[0] + ">" +
+						"<h2>" + recipe.recipeName + "</h2>" +
+						"<p>Total time to cook: " + recipe.totalTimeInSeconds/60 + " minutes</p>" +
+					"</a>" +
+				"</div>";
+		$('#search-results').append(html);
 	});
-}
-
-function displayRecipe(recipe) {
-	console.log(recipe);
-	var html = "<div class='list card'>" +
-				"<div class='item item-avatar'>" + 
-					"<img src=" + recipe.smallImageUrls[0] + ">" +
-					"<h2>" + recipe.recipeName + "</h2>" +
-					"<p>Total time to cook: " + recipe.totalTimeInSeconds/60 + " minutes</p>" +
-				"</div>" +
-			"</div>";
-	$('#search-results').append(html);
 }

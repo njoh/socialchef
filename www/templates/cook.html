@@ -1,0 +1,17 @@
+<ion-modal-view>
+	<ion-header-bar>
+		<h1 class="title">Cook today</h1>
+		<div class="buttons">
+			<button class="button button-clear" ng-click="closeCookToday()">Close</button>
+		</div>
+	</ion-header-bar>
+	<ion-content id="cook-modal" padding="true">
+		<button class="button button-balanced" ng-click="addQuickMeal()">
+		  	Cook Quick Meal
+		</button>
+
+		<a class="button button-balanced" href="#/app/search" ng-click="closeCookToday()">
+		  	Search for Recipe
+		</a>
+	</ion-content>
+</ion-modal-view>

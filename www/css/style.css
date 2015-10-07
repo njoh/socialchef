@@ -3,3 +3,44 @@
 .center {
 	text-align: center;
 }
+
+ion-content.no-background {
+	background-color: white; !
+}
+
+ion-content.salad-background {
+	background-image: url("../img/salad-background-blurred.jpg");
+	background-size: 100% 100%;
+}
+
+.card > .item {
+	background: rgba(255,255,255,.8);
+}
+
+.card {
+	background-color: rgba(240,240,240,0);
+}
+
+img#plate {
+	position: relative; 
+	padding-top: 5%;
+	padding-bottom: 5%;
+	width: 70%;
+}
+
+h2#number-meals-cooked {
+	text-align: center;
+	position: absolute;
+	top: 35%;
+	font-size: 13vw;
+	width: 100%;
+}
+
+h4#number-meals-cooked-description {
+	text-align: center;
+	position: absolute;
+	top: 60%;
+	font-size: 3vw;
+	width: 100%;
+}
+

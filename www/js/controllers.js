@@ -57,6 +57,38 @@ angular.module('starter.controllers', [])
 		}
 		return { title: 'None', id: 1, 	date: 'today' }
 	}
+
+	$scope.mealsCooked = [];
+
+	$scope.addMeal = function(name, yummlyID) {
+		$scope.mealsCooked.push({ name: name, yummlyID: yummlyID, date: new Date()});
+		console.log($scope.mealsCooked);
+	}
+})
+
+.controller('DashboardCtrl', function($scope, $ionicModal) {
+
+	// Create the cook modal that we will use later
+	$ionicModal.fromTemplateUrl('templates/cook.html', {
+		scope: $scope
+	}).then(function(modal) {
+		$scope.cookModal = modal;
+	});
+
+	// Triggered in the cook today modal to close it
+	$scope.closeCookToday = function() {
+		$scope.cookModal.hide();
+	};
+
+	// Open the cook today modal
+	$scope.cook = function() {
+		$scope.cookModal.show();
+	};
+
+	$scope.addQuickMeal = function() {
+		$scope.addMeal('Quick Meal', 'none');
+		$scope.cookModal.hide();
+	}
 })
 
 .controller('SearchCtrl', function($scope) {
@@ -77,7 +109,11 @@ angular.module('starter.controllers', [])
 .controller('RecipeCtrl', function($scope, $stateParams) {
 	var recipeId = $stateParams.recipeId;
 	getRecipe(recipeId);
-	$scope.recipe = $scope.getRecipe(recipeId);
+	
+	$scope.makeRecipe = function() {
+		$scope.addMeal('Yummly Recipe', 'recipeId');
+		alert('Adding recipe to meals cooked today!');
+	}
 })
 
 .controller('HistoryCtrl', function($scope) {

@@ -27,7 +27,7 @@ function displayRecipes(response) {
 	$('#search-results').empty();
 	var recipes = response.matches;
 	recipes.forEach( function(recipe) {
-		console.log(recipe);
+		// console.log(recipe);
 		// display each recipe
 		var html = "<div class='list card'>" +
 					"<a href='#/app/recipes/" + recipe.id + "' class='item item-avatar'>" + 
@@ -64,9 +64,9 @@ function getRecipe(recipeID) {
 }
 
 function displayRecipe(response) {
-	console.log('yay');
 	$('#recipe-details').empty();
 	var recipe = response;
+	console.log(recipe);
 	var html = "<div class='list card'>" +
 				"<div class='item'>" +
 					"<h2>" + recipe.name + "</h2>" +

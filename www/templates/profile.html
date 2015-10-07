@@ -1,5 +1,5 @@
 <ion-view view-title="Dashboard">
-	<ion-content padding="true">
+	<ion-content padding="true" class="salad-background">
 		<h1 class="center">Week of: </h1>
 
 		<div class="list card">
@@ -8,10 +8,12 @@
 			</div>
 
 			<div class="item item-image">
-				<img src="img/ionic.png">
+				<img id="plate" src="img/plate.png">
+				<h2 id="number-meals-cooked">{{ mealsCooked.length }}</h2>
+				<h4 id="number-meals-cooked-description">meals cooked</h4>
 			</div>
 
-			<a class="item item-icon-left center" href="#">
+			<a class="item item-icon-left center" href="#" ng-click="cook()">
     			<i class="ionicons ion-plus-round"></i>
 				Cook today
   			</a>
@@ -60,7 +62,5 @@
 				<p>For eating entirely paleo meals</p>
 			</div>
 		</div>
-
-
 	</ion-content>
 </ion-view>

@@ -1,5 +1,116 @@
-<ion-view view-title="Profile">
-	<ion-content>
-		<h1>Profile</h1>
+<ion-view view-title="Dashboard">
+	<ion-content padding="true" class="salad-background">
+		<div class="row">
+			<div class="col col-10 col-center dash-navigation">
+				<i class="ionicons ion-ios-arrow-back"></i>
+			</div>
+			<div class="col col-80">
+				<h1 class="center" id="week">Week of 10/5</h1>
+				<h2 class="center" id="week-description">This week</h2>
+			</div>
+			<div class="col col-10 col-center">
+			</div>
+		</div>
+
+		<div class="list card">
+			<!-- <div class="item">
+				<h2>Meals cooked</h2>
+			</div> -->
+
+			<div class="item item-image">
+				<img id="plate" src="img/plate.png">
+				<h2 id="number-meals-cooked">{{ mealsCooked.length }}</h2>
+				<h4 id="number-meals-cooked-description">meals cooked</h4>
+			</div>
+
+			<a class="item item-icon-left center" href="#" ng-click="cook()">
+    			<i class="ionicons ion-plus-round"></i>
+				Cook today
+  			</a>
+
+  			<!-- <div id="cook-buttons" class="item">
+  				<div class="row">
+  					<div class="col">
+		  				<button class="button button-balanced button-circle-large button-center" ng-click="addQuickMeal()">
+						  	<h3>Cook</h3>
+						  	<h3>Quick Meal</h3>
+						</button>
+					</div>
+					<div class="col">
+						<a href="#/app/search">
+							<button class="button button-balanced button-circle-large button-center" ng-click="hideCookButtons()">
+							  	<h3>Search</h3>
+						  		<h3>for Recipe</h3>
+							</button>
+						</a>
+					</div>
+				</div>
+  			</div> -->
+		</div>
+
+		<div id="cook-buttons">
+  				<div class="row">
+  					<div class="col">
+		  				<button class="button button-balanced button-circle-large button-center" ng-click="addQuickMeal()">
+		  					<i class="ionicons ion-ios-nutrition-outline cook-button-icon"></i>
+						  	<h3 class="cook-button-text">Cook Quick Meal</h3>
+						</button>
+					</div>
+					<div class="col">
+						<a href="#/app/search">
+							<button class="button button-balanced button-circle-large button-center" ng-click="hideCookButtons()">
+								<i class="ionicons ion-ios-search cook-button-icon"></i>
+							  	<h3 class="cook-button-text">
+							  		Search for Recipe
+							  	</h3>
+							</button>
+						</a>
+					</div>
+				</div>
+  			</div>
+
+		<div class="list card">
+			<div class="item">
+				<h2>Summary of meals cooked this week:</h2>
+			</div>
+
+			<div class="item">
+				<p>
+					Average meal cost: $10
+					</br>
+					Average calories per meal: 430
+					</br>
+					New recipes tried: 1
+					</br>
+					New skills: flipping an egg, heating up water
+				</p>
+			</div>
+		</div>
+
+		<div class="list card">
+			<div class="item item-avatar">
+				<img class="award" src="img/chef-status/dishwasher.png">
+				<h2>Chef Level: Dishwasher</h2>
+				<p>9 meals to go until next level!</p>
+			</div>
+		</div>
+
+		<div class="list card">
+			<div class="item">
+				<h2>Trophies earned this week:</h2>
+			</div>
+
+			<div class="item item-avatar">
+				<img class="award" src="img/awards/ratatouille-award.jpg">
+				<h2>Ratatouille Trophy</h2>
+				<p>For cooking your first meal</p>
+			</div>
+
+			<div class="item item-avatar">
+				<img class="award" src="img/awards/caveman-award.jpg">
+				<h2>Caveman Trophy</h2>
+				<p>For eating entirely paleo for the week</p>
+			</div>
+		</div>
 	</ion-content>
 </ion-view>

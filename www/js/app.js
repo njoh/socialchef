@@ -36,8 +36,13 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 		url: '/profile',
 		views: {
 			'menuContent': {
-				templateUrl: 'templates/profile.html'
+				templateUrl: 'templates/profile.html',
+				controller: 'DashboardCtrl'
 			}
+			// 'tab-profile': {
+			// 	templateUrl: 'templates/profile.html',
+			// 	controller: 'DashboardCtrl'
+			// }
 		}
 	})
 
@@ -48,6 +53,10 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 				templateUrl: 'templates/search.html',
 				controller: 'SearchCtrl'
 			}
+			// 'tab-recipe-search': {
+			// 	templateUrl: 'templates/search.html',
+			// 	controller: 'SearchCtrl'
+			// }
 		}
 	})
 
@@ -68,6 +77,10 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 				templateUrl: 'templates/history.html',
 				controller: 'HistoryCtrl'
 			}
+			// 'tab-history': {
+			// 	templateUrl: 'templates/history.html',
+			// 	controller: 'HistoryCtrl'
+			// }
 		}
 	})
 
@@ -78,6 +91,10 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 				templateUrl: 'templates/badges.html',
 				controller: 'BadgesCtrl'
 			}
+			// 'tab-badges': {
+			// 	templateUrl: 'templates/badges.html',
+			// 	controller: 'BadgesCtrl'
+			// }
 		}
 	})
 

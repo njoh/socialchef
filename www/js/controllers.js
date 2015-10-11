@@ -57,12 +57,54 @@ angular.module('starter.controllers', [])
 		}
 		return { title: 'None', id: 1, 	date: 'today' }
 	}
+
+	$scope.mealsCooked = [];
+
+	$scope.addMeal = function(name, yummlyID) {
+		$scope.mealsCooked.push({ name: name, yummlyID: yummlyID, date: new Date()});
+		console.log($scope.mealsCooked);
+	}
+})
+
+.controller('DashboardCtrl', function($scope, $ionicModal) {
+
+	$('#cook-buttons').hide();
+
+	// Create the cook modal that we will use later
+	$ionicModal.fromTemplateUrl('templates/cook.html', {
+		scope: $scope
+	}).then(function(modal) {
+		$scope.cookModal = modal;
+	});
+
+	// Triggered in the cook today modal to close it
+	$scope.closeCookToday = function() {
+		$scope.cookModal.hide();
+	};
+
+	// Triggered in the cook today modal to close it
+	$scope.hideCookButtons = function() {
+		$('#cook-buttons').hide();
+	};
+
+	// Open the cook today modal
+	$scope.cook = function() {
+		// $scope.cookModal.show();
+		$('#cook-buttons').show();
+	};
+
+	$scope.addQuickMeal = function() {
+		$scope.addMeal('Quick Meal', 'none');
+		// $scope.cookModal.hide();
+		$('#cook-buttons').hide();
+	}
 })
 
 .controller('SearchCtrl', function($scope) {
 	$scope.search = function(keyEvent) {
 		if (keyEvent.which === 13) {
-			alert('Perform search');
+			// alert('Perform search ' + this.searchTerm);
+			getRecipes(this.searchTerm);
 			// $scope.recipes = [
 			// 	{ title: 'Cookies', id: 1 },
 			// 	{ title: 'Pizza', id: 2 },
@@ -75,7 +117,12 @@ angular.module('starter.controllers', [])
 
 .controller('RecipeCtrl', function($scope, $stateParams) {
 	var recipeId = $stateParams.recipeId;
-	$scope.recipe = $scope.getRecipe(recipeId);
+	getRecipe(recipeId);
+	
+	$scope.makeRecipe = function() {
+		$scope.addMeal('Yummly Recipe', 'recipeId');
+		alert('Adding recipe to meals cooked today!');
+	}
 })
 
 .controller('HistoryCtrl', function($scope) {
@@ -84,6 +131,8 @@ angular.module('starter.controllers', [])
 		{ title: 'Pizza', 		id: 2,	date: 'tomorrow' },
 		{ title: 'PB&J', 		id: 3,	date: 'friday' }
 	];
+	// $scope.meals = $scope.mealsCooked;
+	// console.log($scope.mealsCooked);
 })
 
 .controller('BadgesCtrl', function($scope) {

@@ -138,3 +138,11 @@ div.col.recipe-step-description {
 	background-color: rgba(100,218,96,0.8);
 	color:white;
 }
+
+.recipe-card {
+	margin: 0;
+}
+
+.list:last-child.card {
+    margin-bottom: 0px;
+}

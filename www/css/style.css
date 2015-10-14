@@ -139,6 +139,10 @@ div.col.recipe-step-description {
 #cook-today-button {
 	background-color: rgba(100,218,96,0.8);
 	color:white;
+	font-weight: 300;
+	letter-spacing: 2px;
+	font-size: 1.5em;
+	text-transform: uppercase;
 }
 
 .recipe-card {

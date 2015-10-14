@@ -40,6 +40,25 @@ angular.module('socialchef.controllers', [])
 		}, 1000);
 	};
 
+	// Keep Cooking Modal
+	// Create the keep cooking modal that we will use later
+	$ionicModal.fromTemplateUrl('templates/keep_cooking_modal.html', {
+		scope: $scope
+	}).then(function(modal) {
+		$scope.keepCookingModal = modal;
+	});
+
+	// Triggered in the keep cooking today modal to close it
+	$scope.closeKeepCooking = function() {
+		$scope.keepCookingModal.hide();
+	};
+
+	// Triggered when meal added
+	$scope.openKeepCooking = function() {
+		$scope.keepCookingModal.show();
+	};
+
+	// Other stuff:
 	$scope.date = new Date();
 	$scope.mealsCooked = [];
 	// $scope.mealsCooked = new MealsCooked();
@@ -94,6 +113,7 @@ angular.module('socialchef.controllers', [])
 		// $scope.cookModal.hide();
 		$scope.mealsCooked.addQuickMeal();
 		$scope.updateMealsCookedThisWeek();
+		$scope.openKeepCooking();
 		// $scope.mealsCooked.getMealsForCurrentWeek();
 		$('#cook-buttons').hide();
 	}
@@ -126,7 +146,8 @@ angular.module('socialchef.controllers', [])
 	$scope.makeRecipe = function() {
 		// $scope.addMeal($scope.recipe.name, $scope.recipe.id);
 		$scope.addRecipeToMealsCooked($scope.recipe);
-		alert('Adding recipe to meals cooked today!');
+		$scope.openKeepCooking();
+		// alert('Adding recipe to meals cooked today!');
 	}
 })
 

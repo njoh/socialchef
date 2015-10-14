@@ -142,6 +142,12 @@ angular.module('socialchef.controllers', [])
 	};
 })
 
+.directive('tabsMenu', function() {
+	return {
+	    templateUrl: 'templates/tabs.html'
+	};
+})
+
 .controller('HistoryCtrl', function($scope) {
 })
 

@@ -53,6 +53,7 @@ function getRecipeInstructionsFromSpoonacular(recipe, $scope, $http) {
 		// console.log(response);
 		recipe.addRecipeInstructions(response.data);
 		$scope.recipe = recipe;
+		console.log($scope.recipe);
 	}, function error(response) {
 		console.log(response);
 	})

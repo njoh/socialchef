@@ -10,3 +10,11 @@
 		<p>Cook time: {{ recipe.time }} minutes </p>
 	</div>
 </div>
+
+<h2 class="skinny-header center">Ingredients</h2>
+
+<div class="list card">
+	<div class="item" ng-repeat="ingredient in recipe.ingredients">
+		<p>{{ ingredient.originalString }}</p>
+	</div>
+</div>

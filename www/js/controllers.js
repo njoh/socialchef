@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('socialchef.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -40,30 +40,26 @@ angular.module('starter.controllers', [])
 		}, 1000);
 	};
 
-	$scope.saved_recipes = [
-		{ title: 'Cookies', 	id: 1, 	date: 'today' },
-		{ title: 'Pizza', 		id: 2,	date: 'tomorrow' },
-		{ title: 'PB&J', 		id: 3,	date: 'friday' },
-		{ title: 'Brownies', 	id: 4,	date: 'friday' }
-	];
-
-	$scope.getRecipe = function(recipeId) {
-		var recipes = $scope.saved_recipes
-		for (i in recipes) {
-			var recipe = recipes[i];
-			if (recipeId == recipe.id) {
-				return recipe
-			}
-		}
-		return { title: 'None', id: 1, 	date: 'today' }
-	}
-
+	$scope.date = new Date();
 	$scope.mealsCooked = [];
+	// $scope.mealsCooked = new MealsCooked();
 
-	$scope.addMeal = function(name, yummlyID) {
-		$scope.mealsCooked.push({ name: name, yummlyID: yummlyID, date: new Date()});
-		console.log($scope.mealsCooked);
+	$scope.mealsCookedThisWeek = $scope.mealsCooked.getMealsForCurrentWeek();
+
+	$scope.updateMealsCookedThisWeek = function() {
+		$scope.mealsCookedThisWeek = $scope.mealsCooked.getMealsForCurrentWeek();
 	}
+
+	$scope.addRecipeToMealsCooked = function(recipe) {
+		$scope.mealsCooked.addRecipe(recipe);
+		$scope.updateMealsCookedThisWeek();
+		// $scope.mealsCooked.push({ name: name, spoonacularID: spoonacularID, date: new Date()});
+		// console.log($scope.mealsCooked);
+	}
+
+	// $scope.addQuickMealToMealsCooked = function() {
+	// 	$scope.mealsCooked.addQuickMeal();
+	// }
 })
 
 .controller('DashboardCtrl', function($scope, $ionicModal) {
@@ -93,46 +89,60 @@ angular.module('starter.controllers', [])
 		$('#cook-buttons').show();
 	};
 
-	$scope.addQuickMeal = function() {
-		$scope.addMeal('Quick Meal', 'none');
+	$scope.makeQuickMeal = function() {
+		// $scope.addMeal('Quick Meal', 'none');
 		// $scope.cookModal.hide();
+		$scope.mealsCooked.addQuickMeal();
+		$scope.updateMealsCookedThisWeek();
+		// $scope.mealsCooked.getMealsForCurrentWeek();
 		$('#cook-buttons').hide();
 	}
+
+	// $scope.mealsCooked.getMealsForCurrentWeek();
+
 })
 
-.controller('SearchCtrl', function($scope) {
+.controller('SearchCtrl', function($scope, $http) {
+	$scope.recipes = 'asfds';
 	$scope.search = function(keyEvent) {
 		if (keyEvent.which === 13) {
-			// alert('Perform search ' + this.searchTerm);
-			getRecipes(this.searchTerm);
-			// $scope.recipes = [
-			// 	{ title: 'Cookies', id: 1 },
-			// 	{ title: 'Pizza', id: 2 },
-			// 	{ title: 'PB&J', id: 3 }
-			// ];
-			$scope.recipes = $scope.saved_recipes;
+			// getRecipes(this.searchTerm);
+			searchRecipesFromSpoonacular(this.searchTerm, $scope, $http);
 		}
 	}
 })
 
-.controller('RecipeCtrl', function($scope, $stateParams) {
+.directive('searchResults', function() {
+	return {
+	    templateUrl: 'templates/search_results.html'
+	};
+})
+
+.controller('RecipeCtrl', function($scope, $stateParams, $http) {
 	var recipeId = $stateParams.recipeId;
-	getRecipe(recipeId);
+	// getRecipe(recipeId, $scope);
+	getRecipeFromSpoonacular(recipeId, $scope, $http);
 	
 	$scope.makeRecipe = function() {
-		$scope.addMeal('Yummly Recipe', 'recipeId');
+		// $scope.addMeal($scope.recipe.name, $scope.recipe.id);
+		$scope.addRecipeToMealsCooked($scope.recipe);
 		alert('Adding recipe to meals cooked today!');
 	}
 })
 
+.directive('recipeDetails', function() {
+	return {
+	    templateUrl: 'templates/recipe_details.html'
+	};
+})
+
+.directive('recipeInstructions', function() {
+	return {
+	    templateUrl: 'templates/recipe_instructions.html'
+	};
+})
+
 .controller('HistoryCtrl', function($scope) {
-	$scope.recipes = [
-		{ title: 'Cookies', 	id: 1, 	date: 'today' },
-		{ title: 'Pizza', 		id: 2,	date: 'tomorrow' },
-		{ title: 'PB&J', 		id: 3,	date: 'friday' }
-	];
-	// $scope.meals = $scope.mealsCooked;
-	// console.log($scope.mealsCooked);
 })
 
 .controller('BadgesCtrl', function($scope) {
@@ -141,20 +151,4 @@ angular.module('starter.controllers', [])
 		{ title: 'Master Chef Award', 		id: 2,	date: 'tomorrow' }
 	];
 })
-
-// // Ionic starter app 
-// .controller('PlaylistsCtrl', function($scope) {
-// 	$scope.playlists = [
-// 		{ title: 'Reggae', id: 1 },
-// 		{ title: 'Chill', id: 2 },
-// 		{ title: 'Dubstep', id: 3 },
-// 		{ title: 'Indie', id: 4 },
-// 		{ title: 'Rap', id: 5 },
-// 		{ title: 'Cowbell', id: 6 }
-// 	];
-// })
-
-// // Ionic starter app 
-// .controller('PlaylistCtrl', function($scope, $stateParams) {
-// })
 ;

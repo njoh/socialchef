@@ -1,0 +1,12 @@
+<h2 class="skinny-header center"> {{ recipe.name }} </h2>
+
+<div class="list card">
+	<div class="item item-image">
+		<img src="https://spoonacular.com/recipeImages/{{recipe.image}}">
+	</div>
+	<div class="item item-avatar">
+		<img src="img/meal-cooked.png">
+		<h2>Total ingredients: {{ recipe.ingredients.length }}</h2>
+		<p>Cook time: {{ recipe.time }} minutes </p>
+	</div>
+</div>

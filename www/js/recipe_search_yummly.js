@@ -76,7 +76,7 @@ function displayRecipe(response) {
 					"<img src=" + recipe.images[0].hostedLargeUrl + ">" +
 				"</div>" +
 				"<div href='#/app/recipes/" + recipe.id + "' class='item item-avatar'>" + 
-					"<img src='img/ionic.png'>" +
+					"<img src='img/meal-cooked.png'>" +
 					"<h2>Total ingredients: " + recipe.ingredientLines.length + "</h2>" +
 					"<p>Cook time: " + recipe.totalTimeInSeconds/60 + " minutes</p>" +
 				"</div>" +

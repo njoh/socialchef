@@ -1,11 +1,30 @@
-<ion-view view-title="Badges">
+<ion-view view-title="Trophies">
   	<ion-content>
-		<h1>Badges</h1>
+	    <div class="list card">
+			<div class="item item-text-wrap">
+	    		<p>You've won so many trophies! Keep up the good work in the kitchen!</p>
+	    	</div>
+	    </div>
 
-		<ion-list>
-	      	<ion-item ng-repeat="badge in badges">
-	        	{{badge.title}}, {{badge.date}}
-	      	</ion-item>
-	    </ion-list>
+	    <div class="row">
+	    	<div class="col">
+	    		<img src="img/trophy.png" height="100" width="80">
+	    		<h4>Ratatouille</h4>
+	    	</div>
+	    	<div class="col">
+	    		<img src="img/trophy.png" height="100" width="80">
+	    		<h4>Master Chef</h4>
+	    	</div>
+	    </div>
+	    <div class="row">
+	    	<div class="col">
+	    		<img src="img/trophy.png" height="100" width="80">
+	    		<h4>Michellin Star</h4>
+	    	</div>
+	    	<div class="col">
+	    		<!-- <img src="img/trophy.png" height="100" width="80">
+	    		<h4>Ramen Diet Award</h4> -->
+	    	</div>
+	    </div>
   	</ion-content>
 </ion-view>

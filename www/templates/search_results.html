@@ -1,0 +1,21 @@
+<!-- <div class="list card" ng-repeat="recipe in recipeSearchResults">
+	<a href="#/app/recipes/{{ recipe.id }}" class="item item-avatar">
+		<img src="{{ recipe.image }}">
+		<h2>{{ recipe.title }}</h2>
+		<p>Total ingredients: {{ recipe.missedIngredientCount + recipe.usedIngredientCount }}</p>
+	</a>
+</div> -->
+
+<section id="recipe-search-results">
+	<div class="list card" ng-repeat="recipe in recipeSearchResults">
+		<a href="#/app/recipes/{{ recipe.id }}">
+			<div class="item item-image">
+				<img src="{{ recipe.image }}">
+			</div>
+			<div class="item item-text-wrap">
+				<h2>{{ recipe.title }}</h2>
+				<p>Total ingredients: {{ recipe.missedIngredientCount + recipe.usedIngredientCount }}</p>
+			</div>
+		</a>
+	</div>
+</section>

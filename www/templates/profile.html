@@ -2,11 +2,11 @@
 	<ion-content padding="true" class="salad-background">
 		<div class="row">
 			<div class="col col-10 col-center dash-navigation">
-				<i class="ionicons ion-ios-arrow-back"></i>
+				<!-- <i class="ionicons ion-ios-arrow-back"></i> -->
 			</div>
 			<div class="col col-80">
-				<h1 class="center" id="week">Week of 10/5</h1>
-				<h2 class="center" id="week-description">This week</h2>
+				<h1 class="center" id="week">Week of {{ date | date:'MM/dd' }}</h1>
+				<!-- <h2 class="center" id="week-description">This week</h2> -->
 			</div>
 			<div class="col col-10 col-center">
 			</div>
@@ -19,11 +19,11 @@
 
 			<div class="item item-image">
 				<img id="plate" src="img/plate.png">
-				<h2 id="number-meals-cooked">{{ mealsCooked.length }}</h2>
+				<h2 id="number-meals-cooked">{{ mealsCookedThisWeek.length }}</h2>
 				<h4 id="number-meals-cooked-description">meals cooked</h4>
 			</div>
 
-			<a class="item item-icon-left center" href="#" ng-click="cook()">
+			<a id="cook-today-button" class="item item-icon-left center skinny-header" href="#" ng-click="cook()">
     			<i class="ionicons ion-plus-round"></i>
 				Cook today
   			</a>
@@ -51,7 +51,7 @@
 		<div id="cook-buttons">
   				<div class="row">
   					<div class="col">
-		  				<button class="button button-balanced button-circle-large button-center" ng-click="addQuickMeal()">
+		  				<button class="button button-balanced button-circle-large button-center" ng-click="makeQuickMeal()">
 		  					<i class="ionicons ion-ios-nutrition-outline cook-button-icon"></i>
 						  	<h3 class="cook-button-text">Cook Quick Meal</h3>
 						</button>

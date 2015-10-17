@@ -1,0 +1,53 @@
+<!-- <div class="list card" ng-repeat="recipe in recipeSearchResults">
+	<a href="#/app/recipes/{{ recipe.id }}" class="item item-avatar">
+		<img src="{{ recipe.image }}">
+		<h2>{{ recipe.title }}</h2>
+		<p>Total ingredients: {{ recipe.missedIngredientCount + recipe.usedIngredientCount }}</p>
+	</a>
+</div> -->
+
+<!-- <div ng-repeat="recipe in recipeSearchResults">
+	<div class="col col-50">
+		<div class="list card">
+			<a href="#/app/recipes/{{ recipe.id }}">
+				<div class="item item-image">
+					<img src="{{ recipe.image }}">
+				</div>
+				<div class="item item-text-wrap">
+					<h2>{{ recipe.title }}</h2>
+					<p>Total ingredients: {{ recipe.missedIngredientCount + recipe.usedIngredientCount }}</p>
+				</div>
+			</a>
+		</div>
+	</div>
+</div> -->
+
+<div class="row" ng-repeat="recipe in recipeSearchResults" ng-if="$index % 2 === 0">
+	<div class="col col-50" ng-if="$index < recipeSearchResults.length">
+		<div class="list card recipe-card">
+			<a href="#/app/recipes/{{ recipeSearchResults[$index].id }}">
+				<div class="item item-image">
+					<img src="{{ recipeSearchResults[$index].image }}">
+				</div>
+				<div class="item item-text-wrap">
+					<h2>{{ recipeSearchResults[$index].title }}</h2>
+					<p>Total ingredients: {{ recipeSearchResults[$index].missedIngredientCount + recipeSearchResults[$index].usedIngredientCount }}</p>
+				</div>
+			</a>
+		</div>
+	</div>
+
+	<div class="col col-50" ng-if="$index < recipeSearchResults.length">
+		<div class="list card recipe-card">
+			<a href="#/app/recipes/{{ recipeSearchResults[$index + 1].id }}">
+				<div class="item item-image">
+					<img src="{{ recipeSearchResults[$index + 1].image }}">
+				</div>
+				<div class="item item-text-wrap">
+					<h2>{{ recipeSearchResults[$index + 1].title }}</h2>
+					<p>Total ingredients: {{ recipeSearchResults[$index + 1].missedIngredientCount + recipeSearchResults[$index + 1].usedIngredientCount }}</p>
+				</div>
+			</a>
+		</div>
+	</div>
+</div>

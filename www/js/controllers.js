@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('socialchef.controllers', ['socialchef.services'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -40,30 +40,45 @@ angular.module('starter.controllers', [])
 		}, 1000);
 	};
 
-	$scope.saved_recipes = [
-		{ title: 'Cookies', 	id: 1, 	date: 'today' },
-		{ title: 'Pizza', 		id: 2,	date: 'tomorrow' },
-		{ title: 'PB&J', 		id: 3,	date: 'friday' },
-		{ title: 'Brownies', 	id: 4,	date: 'friday' }
-	];
+	// Keep Cooking Modal
+	// Create the keep cooking modal that we will use later
+	$ionicModal.fromTemplateUrl('templates/keep_cooking_modal.html', {
+		scope: $scope
+	}).then(function(modal) {
+		$scope.keepCookingModal = modal;
+	});
 
-	$scope.getRecipe = function(recipeId) {
-		var recipes = $scope.saved_recipes
-		for (i in recipes) {
-			var recipe = recipes[i];
-			if (recipeId == recipe.id) {
-				return recipe
-			}
-		}
-		return { title: 'None', id: 1, 	date: 'today' }
-	}
+	// Triggered in the keep cooking today modal to close it
+	$scope.closeKeepCooking = function() {
+		$scope.keepCookingModal.hide();
+	};
 
+	// Triggered when meal added
+	$scope.openKeepCooking = function() {
+		$scope.keepCookingModal.show();
+	};
+
+	// Other stuff:
+	$scope.date = new Date();
 	$scope.mealsCooked = [];
+	// $scope.mealsCooked = new MealsCooked();
 
-	$scope.addMeal = function(name, yummlyID) {
-		$scope.mealsCooked.push({ name: name, yummlyID: yummlyID, date: new Date()});
-		console.log($scope.mealsCooked);
+	$scope.mealsCookedThisWeek = $scope.mealsCooked.getMealsForCurrentWeek();
+
+	$scope.updateMealsCookedThisWeek = function() {
+		$scope.mealsCookedThisWeek = $scope.mealsCooked.getMealsForCurrentWeek();
 	}
+
+	$scope.addRecipeToMealsCooked = function(recipe) {
+		$scope.mealsCooked.addRecipe(recipe);
+		$scope.updateMealsCookedThisWeek();
+		// $scope.mealsCooked.push({ name: name, spoonacularID: spoonacularID, date: new Date()});
+		// console.log($scope.mealsCooked);
+	}
+
+	// $scope.addQuickMealToMealsCooked = function() {
+	// 	$scope.mealsCooked.addQuickMeal();
+	// }
 })
 
 .controller('DashboardCtrl', function($scope, $ionicModal) {
@@ -93,46 +108,83 @@ angular.module('starter.controllers', [])
 		$('#cook-buttons').show();
 	};
 
-	$scope.addQuickMeal = function() {
-		$scope.addMeal('Quick Meal', 'none');
+	$scope.makeQuickMeal = function() {
+		// $scope.addMeal('Quick Meal', 'none');
 		// $scope.cookModal.hide();
+		$scope.mealsCooked.addQuickMeal();
+		$scope.updateMealsCookedThisWeek();
+		$scope.openKeepCooking();
+		// $scope.mealsCooked.getMealsForCurrentWeek();
 		$('#cook-buttons').hide();
 	}
+
+	// $scope.mealsCooked.getMealsForCurrentWeek();
+
 })
 
-.controller('SearchCtrl', function($scope) {
+.controller('SearchCtrl', function($scope, spoonacularService) {
 	$scope.search = function(keyEvent) {
 		if (keyEvent.which === 13) {
-			// alert('Perform search ' + this.searchTerm);
-			getRecipes(this.searchTerm);
-			// $scope.recipes = [
-			// 	{ title: 'Cookies', id: 1 },
-			// 	{ title: 'Pizza', id: 2 },
-			// 	{ title: 'PB&J', id: 3 }
-			// ];
-			$scope.recipes = $scope.saved_recipes;
+			doSearch(this.searchTerm);
 		}
+	}
+
+	function doSearch(searchTerm) {
+		spoonacularService.searchRecipes(searchTerm).then( function success(response) { 
+			console.log(response);
+			$scope.recipeSearchResults = response.data;
+		}, function error(response) {
+			console.log(response);
+		});
 	}
 })
 
-.controller('RecipeCtrl', function($scope, $stateParams) {
-	var recipeId = $stateParams.recipeId;
-	getRecipe(recipeId);
+.controller('RecipeCtrl', function($scope, $stateParams, spoonacularService) {
+	var recipeID = $stateParams.recipeId;
+	getRecipeFromSpoonacular(recipeID);
 	
 	$scope.makeRecipe = function() {
-		$scope.addMeal('Yummly Recipe', 'recipeId');
-		alert('Adding recipe to meals cooked today!');
+		// $scope.addMeal($scope.recipe.name, $scope.recipe.id);
+		$scope.addRecipeToMealsCooked($scope.recipe);
+		$scope.openKeepCooking();
+		// alert('Adding recipe to meals cooked today!');
+	}
+
+	function getRecipeFromSpoonacular(recipeID) {
+		spoonacularService.getRecipe(recipeID).then( function success(response) {
+			// console.log(response);
+			var recipe = new Recipe(response.data);
+			$scope.recipe = recipe;
+			// Have to get recipe instructions in a seperate call
+			getRecipeInstructionsFromSpoonacular();
+			getRecipeCostFromSpoonacular();
+			getRecipeCalorieCountFromSpoonacular();
+		}, function error(response) {
+			console.log(response);
+		})
+	}
+
+	function getRecipeInstructionsFromSpoonacular() {
+		spoonacularService.getRecipeInstructions($scope.recipe.sourceURL).then( function success(response) {
+			// console.log(response);
+			$scope.recipe.addRecipeInstructions(response.data);
+		}, function error(response) {
+			console.log(response);
+		})
+	}
+
+	function getRecipeCostFromSpoonacular() {
+		var ingredients = $scope.recipe.ingredients;
+		$scope.recipe.addRecipeCost('10');
+	}
+
+	function getRecipeCalorieCountFromSpoonacular() {
+		var ingredients = $scope.recipe.ingredients;
+		$scope.recipe.addRecipeCalorieCount('500');
 	}
 })
 
 .controller('HistoryCtrl', function($scope) {
-	$scope.recipes = [
-		{ title: 'Cookies', 	id: 1, 	date: 'today' },
-		{ title: 'Pizza', 		id: 2,	date: 'tomorrow' },
-		{ title: 'PB&J', 		id: 3,	date: 'friday' }
-	];
-	// $scope.meals = $scope.mealsCooked;
-	// console.log($scope.mealsCooked);
 })
 
 .controller('BadgesCtrl', function($scope) {
@@ -141,20 +193,4 @@ angular.module('starter.controllers', [])
 		{ title: 'Master Chef Award', 		id: 2,	date: 'tomorrow' }
 	];
 })
-
-// // Ionic starter app 
-// .controller('PlaylistsCtrl', function($scope) {
-// 	$scope.playlists = [
-// 		{ title: 'Reggae', id: 1 },
-// 		{ title: 'Chill', id: 2 },
-// 		{ title: 'Dubstep', id: 3 },
-// 		{ title: 'Indie', id: 4 },
-// 		{ title: 'Rap', id: 5 },
-// 		{ title: 'Cowbell', id: 6 }
-// 	];
-// })
-
-// // Ionic starter app 
-// .controller('PlaylistCtrl', function($scope, $stateParams) {
-// })
 ;

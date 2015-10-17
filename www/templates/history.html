@@ -2,9 +2,10 @@
 	<ion-content padding="true">
 	    <div class="list card">
 			<div class="item item-avatar" ng-repeat="meal in mealsCooked">
-				<img src="img/meal-cooked.png">
+				<!-- <img src="img/meal-cooked.png"> -->
+				<img src="{{meal.image}}">
 				<h2>{{meal.name}}</h2>
-				<p>{{meal.date}}</p>
+				<p>{{meal.date.toLocaleTimeString("en-us", { weekday: "long", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" } ) }}</p>
 			</div>
 
 			<div class="item item-avatar">
@@ -14,4 +15,5 @@
 			</div>
 		</div>
 	</ion-content>
+	<!-- <tabs-menu></tabs-menu> -->
 </ion-view>

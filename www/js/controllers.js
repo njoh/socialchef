@@ -156,20 +156,31 @@ angular.module('socialchef.controllers', ['socialchef.services'])
 			var recipe = new Recipe(response.data);
 			$scope.recipe = recipe;
 			// Have to get recipe instructions in a seperate call
-			getRecipeInstructionsFromSpoonacular(recipe.sourceURL, recipe);
+			getRecipeInstructionsFromSpoonacular();
+			getRecipeCostFromSpoonacular();
+			getRecipeCalorieCountFromSpoonacular();
 		}, function error(response) {
 			console.log(response);
 		})
 	}
 
-	function getRecipeInstructionsFromSpoonacular(recipeURL, recipe) {
-		spoonacularService.getRecipeInstructions(recipeURL).then( function success(response) {
+	function getRecipeInstructionsFromSpoonacular() {
+		spoonacularService.getRecipeInstructions($scope.recipe.sourceURL).then( function success(response) {
 			// console.log(response);
-			recipe.addRecipeInstructions(response.data);
-			$scope.recipe = recipe;
+			$scope.recipe.addRecipeInstructions(response.data);
 		}, function error(response) {
 			console.log(response);
 		})
+	}
+
+	function getRecipeCostFromSpoonacular() {
+		var ingredients = $scope.recipe.ingredients;
+		$scope.recipe.addRecipeCost('10');
+	}
+
+	function getRecipeCalorieCountFromSpoonacular() {
+		var ingredients = $scope.recipe.ingredients;
+		$scope.recipe.addRecipeCalorieCount('500');
 	}
 })
 

@@ -12,30 +12,13 @@ Recipe.prototype.addRecipeInstructions = function(spoonacularInstructions) {
 	this.instructionsHTML = spoonacularInstructions.text;
 }
 
-// function MealsCooked() {
-// 	this = [];
-// }
+Recipe.prototype.addRecipeCost = function(cost) {
+	this.cost = cost;
+}
 
-// MealsCooked.prototype.addRecipe = function(recipe) {
-// 	var date = new Date();
-// 	var name = recipe.name;
-// 	var spoonacularID = recipe.id;
-// 	this.push({
-// 		date: date,
-// 		name: name,
-// 		spoonacularID: spoonacularID,
-// 		recipe: recipe,
-// 	})
-// }
-
-// MealsCooked.prototype.addQuickMeal = function() {
-// 	var date = new Date();
-// 	var name = "Quick Meal";
-// 	this.push({
-// 		date: date,
-// 		name: name,
-// 	})
-// }
+Recipe.prototype.addRecipeCalorieCount = function(calories) {
+	this.calories = calories;
+}
 
 Array.prototype.addRecipe = function(recipe) {
 	var date = new Date();

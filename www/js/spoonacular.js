@@ -1,3 +1,5 @@
+// NOTE: not using this just keeping it in here just in case :)
+
 function searchRecipesFromSpoonacular(searchTerms, $scope, $http) {
 	$http({
 	    url: "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients",

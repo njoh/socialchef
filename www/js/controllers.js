@@ -1,4 +1,4 @@
-angular.module('socialchef.controllers', [])
+angular.module('socialchef.controllers', ['socialchef.services'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -122,26 +122,26 @@ angular.module('socialchef.controllers', [])
 
 })
 
-.controller('SearchCtrl', function($scope, $http) {
-	$scope.recipes = 'asfds';
+.controller('SearchCtrl', function($scope, spoonacularService) {
 	$scope.search = function(keyEvent) {
 		if (keyEvent.which === 13) {
-			// getRecipes(this.searchTerm);
-			searchRecipesFromSpoonacular(this.searchTerm, $scope, $http);
+			doSearch(this.searchTerm);
 		}
+	}
+
+	function doSearch(searchTerm) {
+		spoonacularService.searchRecipes(searchTerm).then( function success(response) { 
+			console.log(response);
+			$scope.recipeSearchResults = response.data;
+		}, function error(response) {
+			console.log(response);
+		});
 	}
 })
 
-.directive('searchResults', function() {
-	return {
-	    templateUrl: 'templates/search_results.html'
-	};
-})
-
-.controller('RecipeCtrl', function($scope, $stateParams, $http) {
-	var recipeId = $stateParams.recipeId;
-	// getRecipe(recipeId, $scope);
-	getRecipeFromSpoonacular(recipeId, $scope, $http);
+.controller('RecipeCtrl', function($scope, $stateParams, spoonacularService) {
+	var recipeID = $stateParams.recipeId;
+	getRecipeFromSpoonacular(recipeID);
 	
 	$scope.makeRecipe = function() {
 		// $scope.addMeal($scope.recipe.name, $scope.recipe.id);
@@ -149,24 +149,28 @@ angular.module('socialchef.controllers', [])
 		$scope.openKeepCooking();
 		// alert('Adding recipe to meals cooked today!');
 	}
-})
 
-.directive('recipeDetails', function() {
-	return {
-	    templateUrl: 'templates/recipe_details.html'
-	};
-})
+	function getRecipeFromSpoonacular(recipeID) {
+		spoonacularService.getRecipe(recipeID).then( function success(response) {
+			// console.log(response);
+			var recipe = new Recipe(response.data);
+			$scope.recipe = recipe;
+			// Have to get recipe instructions in a seperate call
+			getRecipeInstructionsFromSpoonacular(recipe.sourceURL, recipe);
+		}, function error(response) {
+			console.log(response);
+		})
+	}
 
-.directive('recipeInstructions', function() {
-	return {
-	    templateUrl: 'templates/recipe_instructions.html'
-	};
-})
-
-.directive('tabsMenu', function() {
-	return {
-	    templateUrl: 'templates/tabs.html'
-	};
+	function getRecipeInstructionsFromSpoonacular(recipeURL, recipe) {
+		spoonacularService.getRecipeInstructions(recipeURL).then( function success(response) {
+			// console.log(response);
+			recipe.addRecipeInstructions(response.data);
+			$scope.recipe = recipe;
+		}, function error(response) {
+			console.log(response);
+		})
+	}
 })
 
 .controller('HistoryCtrl', function($scope) {

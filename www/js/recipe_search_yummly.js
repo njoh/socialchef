@@ -1,3 +1,5 @@
+// NOTE: not using this just keeping it in here just in case :)
+
 // Gets recipes after user performs search
 function getRecipes(searchTerms) {
 	try {

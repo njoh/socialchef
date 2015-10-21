@@ -76,6 +76,39 @@ angular.module('socialchef.controllers', ['socialchef.services'])
 		// console.log($scope.mealsCooked);
 	}
 
+	$scope.getAverageMealCalories = function() {
+		$scope.updateMealsCookedThisWeek();
+		var mealLength = $scope.mealsCookedThisWeek.length;
+		var totalCalories = 0;
+		for (var i = 0; i < mealLength; i++){
+			totalCalories = totalCalories + $scope.mealsCookedThisWeek[i].recipe.calories;
+		}
+		var averageCalories = totalCalories/mealLength;
+
+		if (isNaN(averageCalories)){
+			return 0;
+		}
+		else {
+			return averageCalories;
+		}
+	}
+
+	$scope.getAverageMealCost = function() {
+		$scope.updateMealsCookedThisWeek();
+		var mealLength = $scope.mealsCookedThisWeek.length;
+		var totalCost = 0;
+		for (var i = 0; i < mealLength; i++){
+			totalCost = totalCost + $scope.mealsCookedThisWeek[i].recipe.cost;
+		}
+		var averageCost = totalCost/mealLength;
+		if (isNaN(averageCost)){
+			return 0;
+		}
+		else {
+			return averageCost;
+		}
+	}
+
 	// $scope.addQuickMealToMealsCooked = function() {
 	// 	$scope.mealsCooked.addQuickMeal();
 	// }
@@ -157,8 +190,9 @@ angular.module('socialchef.controllers', ['socialchef.services'])
 			$scope.recipe = recipe;
 			// Have to get recipe instructions in a seperate call
 			getRecipeInstructionsFromSpoonacular();
-			getRecipeCostFromSpoonacular();
-			getRecipeCalorieCountFromSpoonacular();
+			getRecipeSummaryFromSpoonacular();
+			// getRecipeCostFromSpoonacular();
+			// getRecipeCalorieCountFromSpoonacular();
 		}, function error(response) {
 			console.log(response);
 		})
@@ -173,15 +207,54 @@ angular.module('socialchef.controllers', ['socialchef.services'])
 		})
 	}
 
-	function getRecipeCostFromSpoonacular() {
-		var ingredients = $scope.recipe.ingredients;
-		$scope.recipe.addRecipeCost('10');
+	// function getRecipeCostFromSpoonacular() {
+	// 	var ingredients = $scope.recipe.ingredients;
+	// 	$scope.recipe.addRecipeCost('10');
+	// }
+
+	// function getRecipeCalorieCountFromSpoonacular() {
+	// 	var ingredients = $scope.recipe.ingredients;
+	// 	$scope.recipe.addRecipeCalorieCount('500');
+	// }
+
+	function getRecipeSummaryFromSpoonacular() {
+		spoonacularService.getSummary($scope.recipe.id).then( function success(response) {
+			var summary = response.data;
+			var cost = extractRecipeCost(summary);
+			$scope.recipe.addRecipeCost(cost);
+			var cals = extractRecipeCalories(summary);
+			$scope.recipe.addRecipeCalorieCount(cals);
+		}, function error(response){
+			console.log(response);
+		})
 	}
 
-	function getRecipeCalorieCountFromSpoonacular() {
-		var ingredients = $scope.recipe.ingredients;
-		$scope.recipe.addRecipeCalorieCount('500');
+	function extractRecipeCalories(spoonacularSummary) {
+		var summary = spoonacularSummary.summary;
+		var summaryCalories = summary.match(/\d+\s\bcalories\b/);
+		var summaryCaloriesLength = summaryCalories[0].length;
+		var stringCalories = 0;
+		if (summaryCaloriesLength == 11) {
+			stringCalories = summaryCalories[0].substring(0, 2);
+		}
+		else if (summaryCaloriesLength == 12) {
+			stringCalories = summaryCalories[0].substring(0, 3);
+		}
+		else {
+			stringCalories = summaryCalories[0].substring(0, 4);
+		}
+		var calories = Number(stringCalories);
+		return calories;
 	}
+
+	function extractRecipeCost(spoonacularSummary) {
+		var summary = spoonacularSummary.summary;
+		var summaryCost = summary.match(/\$\d+\.\d{2}/);
+		var stringCost = summaryCost[0].substring(1);
+		var cost = Number(stringCost);
+		return cost;
+	}
+
 })
 
 .controller('HistoryCtrl', function($scope) {
@@ -194,3 +267,4 @@ angular.module('socialchef.controllers', ['socialchef.services'])
 	];
 })
 ;
+

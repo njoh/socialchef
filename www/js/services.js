@@ -38,5 +38,14 @@ angular.module('socialchef.services', [])
 			    },
 			})
 		},
+		getSummary: function(recipeID) {
+			return $http({
+				url: "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/" + recipeID + "/summary",
+				method: "GET",
+				headers: {
+					"X-Mashape-Key": "vCDVQHBGVnmshCYR0nAs2N9Ibaixp1FHLNljsn9lD7ZxzJe2B3",
+				},
+			})
+		},
 	}
 })

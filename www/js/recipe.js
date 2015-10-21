@@ -8,6 +8,21 @@ function Recipe(spoonacularRecipe) {
 	this.sourceURL = spoonacularRecipe.sourceUrl;
 }
 
+// Recipe.prototype.extractRecipeCalories = function(spoonacularSummary) {
+// 	var summary = spoonacularSummary.text;
+// 	var summaryCalories = $('b:contains("calories")');
+// 	var cals = parseInt(summaryCalories);
+// 	return cals;
+// }
+
+// Recipe.prototype.extractRecipeCost = function(spoonacularSummary) {
+// 	var summary = spoonacularSummary.text;
+// 	var n = summary.search("$");
+// 	var summaryCost = spoonacularSummary.substr(n, n+4);
+// 	var cst = parseInt(summaryCost);
+// 	return cst;
+// }
+
 Recipe.prototype.addRecipeInstructions = function(spoonacularInstructions) {
 	this.instructionsHTML = spoonacularInstructions.text;
 }
